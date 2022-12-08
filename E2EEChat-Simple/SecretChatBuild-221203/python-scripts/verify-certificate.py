@@ -22,7 +22,12 @@ def read_as_json():
 # https://pycryptodome.readthedocs.io/en/latest/src/signature/pkcs1_v1_5.html
 def verify(hash, key, signature):
     # PKCS #1 v1.5 를 이용한 전자서명 검증, 성공시 True, 실패시 False 리턴
-	return pkcs1_15.new(RSA.importKey(key.encode('utf-8'))).verify(hash, decode_base64(signature))
+    try:
+        pkcs1_15.new(RSA.importKey(decode_base64(key))).verify(hash, decode_base64(signature))
+        return True
+    except:
+        return False
+	
 
 cert = read_as_json()
 

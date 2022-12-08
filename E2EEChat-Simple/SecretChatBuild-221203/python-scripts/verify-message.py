@@ -20,7 +20,7 @@ def read_from_base64():
 def verify(msg, key, signature):
     # PKCS #1 v1.5 를 이용한 전자서명 검증, 성공시 "ok" 리턴
     hash = SHA256.new(msg)
-    return pkcs1_15.new(RSA.importKey(key.encode('utf-8'))).verify(hash, decode_base64(signature))
+    return pkcs1_15.new(RSA.importKey(key)).verify(hash, decode_base64(signature))
 
 [msg, pubkey, signature] = read_from_base64()
 
